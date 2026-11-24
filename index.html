@@ -1,0 +1,957 @@
+
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Neural Space | AI World</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  scroll-behavior:smooth;
+}
+
+:root{
+  --blue:#8498d9;
+  --purple:#8885c9;
+  --dark:#272b45;
+  --light:#f5f6ff;
+  --muted:#777b96;
+}
+
+body{
+  font-family:'Manrope',sans-serif;
+  color:var(--dark);
+  background:
+    radial-gradient(circle at 10% 10%,#e9eaff,transparent 35%),
+    linear-gradient(130deg,#fff,#f1f2ff);
+  min-height:100vh;
+  overflow-x:hidden;
+}
+
+body:before{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  opacity:.15;
+  background-image:
+  radial-gradient(#8a91c9 1px,transparent 1px);
+  background-size:30px 30px;
+}
+
+.container{
+  width:90%;
+  max-width:1450px;
+  margin:auto;
+  position:relative;
+  z-index:1;
+}
+
+/* NAVIGATION */
+
+header{
+  height:95px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+
+.logo{
+  font-size:23px;
+  font-weight:800;
+  letter-spacing:-1px;
+}
+
+.logo span{
+  color:#8587cc;
+}
+
+.logo-icon{
+  display:inline-grid;
+  place-items:center;
+  width:39px;
+  height:39px;
+  background:linear-gradient(135deg,#8498d9,#aaa1df);
+  color:white;
+  border-radius:12px;
+  margin-right:8px;
+}
+
+nav{
+  display:flex;
+  gap:42px;
+}
+
+nav a{
+  color:#4e526b;
+  text-decoration:none;
+  font-size:14px;
+  font-weight:700;
+  transition:.3s;
+}
+
+nav a:hover{
+  color:#8885d0;
+}
+
+.header-buttons{
+  display:flex;
+  gap:12px;
+}
+
+.btn{
+  padding:12px 25px;
+  border-radius:30px;
+  border:1px solid #d8d9e9;
+  background:white;
+  font-weight:700;
+  cursor:pointer;
+  transition:.3s;
+}
+
+.btn.primary{
+  background:linear-gradient(120deg,#8289cf,#a39cda);
+  color:white;
+  border:none;
+}
+
+.btn:hover{
+  transform:translateY(-3px);
+  box-shadow:0 8px 20px #8187c744;
+}
+
+/* HERO BANNER */
+
+.hero{
+  min-height:430px;
+  border-radius:28px;
+  overflow:hidden;
+  position:relative;
+  display:flex;
+  align-items:center;
+  background:
+    linear-gradient(110deg,#6678b8,#899bd4 60%,#a8b3e2);
+  box-shadow:0 20px 45px #6577b529;
+  color:white;
+}
+
+.hero:before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background-image:
+    radial-gradient(white 1px,transparent 1px);
+  background-size:35px 35px;
+  opacity:.3;
+}
+
+.hero-content{
+  position:relative;
+  z-index:2;
+  width:58%;
+  padding:65px 8%;
+}
+
+.small-title{
+  font-size:12px;
+  letter-spacing:4px;
+  font-weight:800;
+  margin-bottom:18px;
+  opacity:.85;
+}
+
+.hero h1{
+  font-size:clamp(45px,6vw,75px);
+  line-height:1.05;
+  font-weight:800;
+  letter-spacing:-3px;
+}
+
+.hero p{
+  margin-top:20px;
+  font-size:16px;
+  line-height:1.8;
+  max-width:480px;
+  color:#f0f1ff;
+}
+
+.hero-link{
+  display:inline-block;
+  margin-top:30px;
+  padding-bottom:5px;
+  border-bottom:2px solid white;
+  color:white;
+  text-decoration:none;
+  font-weight:800;
+}
+
+.hero-image{
+  position:absolute;
+  right:0;
+  bottom:0;
+  width:48%;
+  height:100%;
+  object-fit:cover;
+  object-position:center;
+  mask-image:linear-gradient(to left,black 75%,transparent);
+  opacity:.9;
+}
+
+.slide-dots{
+  position:absolute;
+  bottom:23px;
+  left:8%;
+  display:flex;
+  gap:10px;
+}
+
+.slide-dots span{
+  width:30px;
+  height:4px;
+  border-radius:10px;
+  background:#ffffff66;
+}
+
+.slide-dots span:first-child{
+  background:white;
+}
+
+/* MAIN CONTENT */
+
+.main-grid{
+  display:grid;
+  grid-template-columns:1.15fr .9fr 1fr;
+  gap:25px;
+  margin-top:45px;
+}
+
+.section-title{
+  font-size:23px;
+  font-weight:800;
+  margin-bottom:22px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+
+.section-title span{
+  color:#8588ca;
+}
+
+/* ARTWORK */
+
+.artworks{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:14px;
+}
+
+.art-card{
+  height:205px;
+  border-radius:22px;
+  overflow:hidden;
+  position:relative;
+  box-shadow:0 12px 25px #30345a24;
+  transition:.3s;
+}
+
+.art-card:hover{
+  transform:translateY(-7px);
+}
+
+.art-card img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+.art-info{
+  position:absolute;
+  bottom:0;
+  width:100%;
+  padding:35px 12px 14px;
+  background:linear-gradient(transparent,#252744bd);
+  color:white;
+  font-size:11px;
+}
+
+.view-more{
+  width:100%;
+  margin-top:20px;
+  border:0;
+  padding:14px;
+  border-radius:30px;
+  background:white;
+  box-shadow:0 7px 18px #25274415;
+  font-size:16px;
+  font-weight:800;
+  cursor:pointer;
+}
+
+/* SEARCH */
+
+.search-list{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+
+.search-item{
+  display:flex;
+  align-items:center;
+  gap:13px;
+  padding:15px;
+  border-radius:17px;
+  background:white;
+  box-shadow:0 6px 18px #25274412;
+  transition:.3s;
+  cursor:pointer;
+}
+
+.search-item:hover{
+  transform:translateX(5px);
+  background:#858bd0;
+  color:white;
+}
+
+.search-icon{
+  font-size:21px;
+}
+
+.search-item p{
+  font-size:12px;
+  font-weight:700;
+}
+
+.search-input{
+  margin-top:18px;
+  display:flex;
+  background:white;
+  padding:6px;
+  border-radius:30px;
+  box-shadow:0 7px 20px #25274412;
+}
+
+.search-input input{
+  border:0;
+  outline:0;
+  background:transparent;
+  padding:10px 15px;
+  width:100%;
+  font-family:inherit;
+}
+
+.search-input button{
+  border:0;
+  background:#858bd0;
+  color:white;
+  border-radius:25px;
+  padding:10px 17px;
+  cursor:pointer;
+}
+
+/* STICKERS */
+
+.sticker{
+  height:145px;
+  margin-bottom:15px;
+  position:relative;
+  background:linear-gradient(135deg,#dfe4ff,#f5f4ff);
+  border-radius:22px;
+  overflow:hidden;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.sticker img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  transition:.4s;
+}
+
+.sticker:hover img{
+  transform:scale(1.08);
+}
+
+.sticker-label{
+  position:absolute;
+  right:0;
+  top:0;
+  background:#ffffffde;
+  padding:8px 13px;
+  border-radius:0 0 0 15px;
+  font-size:11px;
+  font-weight:800;
+}
+
+/* INFORMATION CARDS */
+
+.info-card{
+  background:white;
+  padding:17px;
+  border-radius:20px;
+  display:flex;
+  align-items:center;
+  gap:15px;
+  margin-bottom:14px;
+  box-shadow:0 7px 20px #25274410;
+  transition:.3s;
+}
+
+.info-card:hover{
+  transform:translateY(-4px);
+}
+
+.info-icon{
+  width:55px;
+  height:55px;
+  flex-shrink:0;
+  display:grid;
+  place-items:center;
+  background:#eef0ff;
+  border-radius:15px;
+  font-size:27px;
+}
+
+.info-card h3{
+  font-size:15px;
+  margin-bottom:6px;
+}
+
+.info-card p{
+  font-size:10px;
+  color:var(--muted);
+  line-height:1.6;
+}
+
+/* ABOUT SECTION */
+
+.about{
+  margin-top:100px;
+}
+
+.about-heading{
+  text-align:center;
+  margin-bottom:35px;
+}
+
+.about-heading small{
+  color:#8588cc;
+  font-weight:800;
+  letter-spacing:3px;
+}
+
+.about-heading h2{
+  font-size:35px;
+  margin-top:10px;
+}
+
+.about-heading p{
+  color:var(--muted);
+  font-size:14px;
+  margin-top:12px;
+}
+
+.about-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:20px;
+}
+
+.about-card{
+  background:white;
+  padding:30px;
+  border-radius:24px;
+  box-shadow:0 10px 30px #30345a12;
+  transition:.3s;
+}
+
+.about-card:hover{
+  transform:translateY(-7px);
+}
+
+.about-card .number{
+  color:#9296d8;
+  font-size:30px;
+  font-weight:800;
+}
+
+.about-card h3{
+  margin:12px 0;
+  font-size:18px;
+}
+
+.about-card p{
+  color:var(--muted);
+  font-size:13px;
+  line-height:1.8;
+}
+
+/* DAILY USE */
+
+.usage{
+  margin-top:100px;
+}
+
+.usage-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:18px;
+}
+
+.usage-card{
+  background:white;
+  border-radius:22px;
+  overflow:hidden;
+  box-shadow:0 10px 25px #30345a12;
+  transition:.3s;
+}
+
+.usage-card:hover{
+  transform:translateY(-7px);
+}
+
+.usage-card img{
+  width:100%;
+  height:165px;
+  object-fit:cover;
+}
+
+.usage-content{
+  padding:19px;
+}
+
+.usage-content h3{
+  font-size:16px;
+  margin-bottom:9px;
+}
+
+.usage-content p{
+  font-size:12px;
+  color:var(--muted);
+  line-height:1.7;
+}
+
+/* AI CATALOG */
+
+.catalog{
+  margin-top:100px;
+}
+
+.catalog-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:18px;
+}
+
+.tool-card{
+  background:white;
+  border-radius:20px;
+  padding:22px;
+  display:flex;
+  gap:15px;
+  align-items:center;
+  box-shadow:0 8px 25px #30345a12;
+  transition:.3s;
+}
+
+.tool-card:hover{
+  transform:translateY(-5px);
+}
+
+.tool-logo{
+  width:55px;
+  height:55px;
+  border-radius:17px;
+  display:grid;
+  place-items:center;
+  background:#eceeff;
+  color:#7279c5;
+  font-size:20px;
+  font-weight:800;
+  flex-shrink:0;
+}
+
+.tool-card h3{
+  font-size:15px;
+  margin-bottom:6px;
+}
+
+.tool-card p{
+  color:var(--muted);
+  font-size:11px;
+  line-height:1.6;
+}
+
+.tool-card a{
+  display:inline-block;
+  margin-top:9px;
+  color:#777bc7;
+  font-size:11px;
+  font-weight:800;
+  text-decoration:none;
+}
+
+/* FOOTER */
+
+footer{
+  margin-top:100px;
+  padding:30px 0;
+  border-top:1px solid #e5e6f1;
+  display:flex;
+  justify-content:space-between;
+  color:#85869e;
+  font-size:12px;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:950px){
+  .main-grid{grid-template-columns:1fr 1fr}
+  .info-column{grid-column:span 2}
+  .usage-grid{grid-template-columns:repeat(2,1fr)}
+  .catalog-grid{grid-template-columns:repeat(2,1fr)}
+}
+
+@media(max-width:600px){
+  .container{width:92%}
+  header{height:auto;padding:20px 0;flex-wrap:wrap}
+  nav{order:3;width:100%;justify-content:space-between;gap:8px;margin-top:20px}
+  nav a{font-size:11px}
+  .header-buttons{gap:5px}
+  .btn{padding:9px 12px;font-size:11px}
+  .hero{min-height:450px}
+  .hero-content{width:100%;padding:45px 8%}
+  .hero h1{font-size:48px}
+  .hero p{font-size:13px}
+  .hero-image{width:100%;height:55%;opacity:.45}
+  .main-grid{grid-template-columns:1fr}
+  .info-column{grid-column:auto}
+  .art-card{height:170px}
+  .about-grid,.catalog-grid{grid-template-columns:1fr}
+  .usage-grid{grid-template-columns:1fr 1fr}
+  .about-heading h2{font-size:27px}
+  footer{flex-direction:column;gap:10px}
+}
+</style>
+</head>
+
+<body>
+<div class="container">
+
+<header>
+  <div class="logo">
+    <span class="logo-icon">✳</span>
+    Neural<span>Space</span>
+  </div>
+
+  <nav>
+    <a href="#home">Home</a>
+    <a href="#about">About</a>
+    <a href="#usage">Explore</a>
+    <a href="#catalog">AI Tools</a>
+  </nav>
+
+  <div class="header-buttons">
+    <a href="#about"><button class="btn">Log in</button></a>
+    <a href="#catalog"><button class="btn primary">Sign up</button></a>
+  </div>
+</header>
+
+<!-- HERO -->
+
+<section class="hero" id="home">
+  <div class="hero-content">
+    <div class="small-title">THE WORLD OF ARTIFICIAL INTELLIGENCE</div>
+    <h1>Neural<br>Networks</h1>
+    <p>
+      Discover the future of technology.
+      Explore how artificial neural networks learn,
+      create and transform our everyday lives.
+    </p>
+    <a class="hero-link" href="#about">Explore More ↗</a>
+  </div>
+
+  <img class="hero-image"
+  src="https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=1200&q=85"
+  alt="Artificial intelligence">
+
+  <div class="slide-dots">
+    <span></span><span></span><span></span>
+  </div>
+</section>
+
+<!-- MAIN THREE COLUMNS -->
+
+<div class="main-grid">
+
+  <div>
+    <h2 class="section-title">Artwork <span>›</span></h2>
+
+    <div class="artworks">
+      <a class="art-card" href="https://pin.it/2XORH03H5" target="_blank">
+        <img src="https://images.unsplash.com/photo-1620712943543-bcc4688e7485?auto=format&fit=crop&w=600&q=85">
+        <div class="art-info">by Pinterest · AI concept</div>
+      </a>
+
+      <a class="art-card" href="https://pin.it/3Q3D8drXt" target="_blank">
+        <img src="https://images.unsplash.com/photo-1634017839464-5c339ebe3cb4?auto=format&fit=crop&w=600&q=85">
+        <div class="art-info">by Pinterest · Digital art</div>
+      </a>
+    </div>
+
+    <a href="https://pin.it/4ZMUMwewE" target="_blank">
+      <button class="view-more">View More ↗</button>
+    </a>
+  </div>
+
+  <div>
+    <h2 class="section-title">Recent Search</h2>
+
+    <div class="search-list">
+      <div class="search-item"><span class="search-icon">⌕</span><p>What are neural networks?</p></div>
+      <div class="search-item"><span class="search-icon">⌕</span><p>How AI learns</p></div>
+      <div class="search-item"><span class="search-icon">⌕</span><p>AI image generation</p></div>
+      <div class="search-item"><span class="search-icon">⌕</span><p>Neural networks in medicine</p></div>
+    </div>
+
+    <div class="search-input">
+      <input id="search" placeholder="Search something...">
+      <button onclick="searchSite()">Search</button>
+    </div>
+    <p id="result" style="font-size:11px;color:#777;margin:12px 5px"></p>
+  </div>
+
+  <div class="info-column">
+    <h2 class="section-title">AI Knowledge</h2>
+
+    <div class="sticker">
+      <img src="https://images.unsplash.com/photo-1676299081847-824916de030a?auto=format&fit=crop&w=700&q=80">
+      <span class="sticker-label">Artificial Intelligence</span>
+    </div>
+
+    <div class="info-card">
+      <div class="info-icon">🧠</div>
+      <div>
+        <h3>Neural Network</h3>
+        <p>A system inspired by the structure of the human brain.</p>
+      </div>
+    </div>
+
+    <div class="info-card">
+      <div class="info-icon">⚡</div>
+      <div>
+        <h3>Machine Learning</h3>
+        <p>Technology that learns patterns from data.</p>
+      </div>
+    </div>
+
+    <div class="info-card">
+      <div class="info-icon">✦</div>
+      <div>
+        <h3>Deep Learning</h3>
+        <p>Advanced learning using multiple neural layers.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+
+<section class="about" id="about">
+  <div class="about-heading">
+    <small>01 — INTRODUCTION</small>
+    <h2>What are Neural Networks?</h2>
+    <p>Адам миының жұмыс істеу принципінен шабыт алған технология.</p>
+  </div>
+
+  <div class="about-grid">
+    <div class="about-card">
+      <div class="number">01</div>
+      <h3>Деректерді қабылдау</h3>
+      <p>Желіге мәтін, сурет, дыбыс және басқа ақпараттар енгізіледі.</p>
+    </div>
+
+    <div class="about-card">
+      <div class="number">02</div>
+      <h3>Үйрену процесі</h3>
+      <p>Жасанды нейрондар деректер арасындағы байланыстарды талдап үйренеді.</p>
+    </div>
+
+    <div class="about-card">
+      <div class="number">03</div>
+      <h3>Нәтиже шығару</h3>
+      <p>Үйренген ақпарат негізінде болжам, жауап немесе жаңа материал жасайды.</p>
+    </div>
+  </div>
+</section>
+
+<!-- DAILY USE -->
+
+<section class="usage" id="usage">
+  <div class="about-heading">
+    <small>02 — EVERYDAY LIFE</small>
+    <h2>Daily Applications</h2>
+    <p>Нейрондық желілердің күнделікті өмірдегі қолданылуы.</p>
+  </div>
+
+  <div class="usage-grid">
+    <div class="usage-card">
+      <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=600&q=80">
+      <div class="usage-content">
+        <h3>Text Generation</h3>
+        <p>Мәтін жазу, сұрақтарға жауап беру және идеялар ұсыну.</p>
+      </div>
+    </div>
+
+    <div class="usage-card">
+      <img src="https://images.unsplash.com/photo-1547891654-e66ed7ebb968?auto=format&fit=crop&w=600&q=80">
+      <div class="usage-content">
+        <h3>Image Creation</h3>
+        <p>Сипаттама бойынша сурет, дизайн және иллюстрация жасау.</p>
+      </div>
+    </div>
+
+    <div class="usage-card">
+      <img src="https://images.unsplash.com/photo-1453738773917-9c3eff1db985?auto=format&fit=crop&w=600&q=80">
+      <div class="usage-content">
+        <h3>Translation</h3>
+        <p>Тілдерді аудару және адамның сөйлеуін тану.</p>
+      </div>
+    </div>
+
+    <div class="usage-card">
+      <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=600&q=80">
+      <div class="usage-content">
+        <h3>Medicine</h3>
+        <p>Медициналық суреттерді талдау және диагностикаға көмек.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CATALOG -->
+
+<section class="catalog" id="catalog">
+  <div class="about-heading">
+    <small>03 — AI PLATFORMS</small>
+    <h2>Popular AI Tools</h2>
+    <p>Танымал нейрожелі сервистерімен таныс.</p>
+  </div>
+
+  <div class="catalog-grid">
+    <div class="tool-card">
+      <div class="tool-logo">GPT</div>
+      <div>
+        <h3>ChatGPT</h3>
+        <p>Мәтін, идея, код және ақпарат.</p>
+        <a href="https://chatgpt.com/" target="_blank">Visit website ↗</a>
+      </div>
+    </div>
+
+    <div class="tool-card">
+      <div class="tool-logo">M</div>
+      <div>
+        <h3>Midjourney</h3>
+        <p>Жасанды интеллект арқылы сурет жасау.</p>
+        <a href="https://www.midjourney.com/" target="_blank">Visit website ↗</a>
+      </div>
+    </div>
+
+    <div class="tool-card">
+      <div class="tool-logo">G</div>
+      <div>
+        <h3>Google Gemini</h3>
+        <p>Ақпаратты талдау және генерациялау.</p>
+        <a href="https://gemini.google.com/" target="_blank">Visit website ↗</a>
+      </div>
+    </div>
+
+    <div class="tool-card">
+      <div class="tool-logo">D</div>
+      <div>
+        <h3>DALL·E</h3>
+        <p>Мәтіннен суреттер жасау.</p>
+        <a href="https://openai.com/" target="_blank">Visit website ↗</a>
+      </div>
+    </div>
+
+    <div class="tool-card">
+      <div class="tool-logo">C</div>
+      <div>
+        <h3>Canva AI</h3>
+        <p>Дизайн және презентация жасау.</p>
+        <a href="https://www.canva.com/" target="_blank">Visit website ↗</a>
+      </div>
+    </div>
+
+    <div class="tool-card">
+      <div class="tool-logo">TF</div>
+      <div>
+        <h3>TensorFlow</h3>
+        <p>Нейрондық желілерді әзірлеу платформасы.</p>
+        <a href="https://www.tensorflow.org/" target="_blank">Visit website ↗</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div><b>✳ NeuralSpace</b><br>Exploring the future of AI.</div>
+  <div>© 2026 Neural Networks Project</div>
+</footer>
+
+</div>
+
+<script>
+function searchSite(){
+  let value=document.getElementById("search").value.toLowerCase();
+  let result=document.getElementById("result");
+
+  if(!value){
+    result.innerText="Іздеу сөзін енгізіңіз.";
+    return;
+  }
+
+  let sections={
+    "нейрон":"about",
+    "neural":"about",
+    "text":"usage",
+    "мәтін":"usage",
+    "сурет":"usage",
+    "image":"usage",
+    "medicine":"usage",
+    "медицина":"usage",
+    "chatgpt":"catalog",
+    "midjourney":"catalog",
+    "gemini":"catalog"
+  };
+
+  let found=Object.keys(sections).find(key=>value.includes(key));
+
+  if(found){
+    result.innerText="Тақырып табылды!";
+    document.getElementById(sections[found]).scrollIntoView();
+  }else{
+    result.innerText="Бұл тақырып бойынша бөлім табылмады.";
+  }
+}
+
+document.querySelectorAll(".search-item").forEach(item=>{
+  item.addEventListener("click",()=>{
+    document.getElementById("search").value=item.innerText;
+    searchSite();
+  });
+});
+</script>
+
+</body>
+</html>
